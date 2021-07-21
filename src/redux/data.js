@@ -5,7 +5,8 @@ export const dataSlice = createSlice({
   initialState: {
     platform: "pc",
     region: "us",
-    battleTag: "",
+    battleTag: "", // "powerglide#11738",
+    profile: undefined,
   },
   reducers: {
     changePlatform: (state, action) => {
@@ -15,13 +16,15 @@ export const dataSlice = createSlice({
       state.region = action.payload;
     },
     changeBattleTag: (state, action) => {
-      state.battleTag = action.battleTag;
+      state.battleTag = action.payload;
+    },
+    changeProfile: (state, action) => {
+      state.profile = action.payload;
     },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { changePlatform, changeRegion, changeBattleTag } =
+export const { changePlatform, changeRegion, changeBattleTag, changeProfile } =
   dataSlice.actions;
 
 export default dataSlice.reducer;

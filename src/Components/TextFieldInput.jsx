@@ -1,31 +1,45 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import { changeBattleTag } from "../redux/data";
-
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { changeBattleTag, changeProfile } from "../redux/data";
+import { Button, TextField } from "@material-ui/core";
 
 const TextFieldInput = (props) => {
   const { label } = props;
-  const classes = useStyles();
   const dispatch = useDispatch();
+  const platform = useSelector((state) => state.data.platform);
+  const region = useSelector((state) => state.data.region);
+  const battleTag = useSelector((state) => state.data.battleTag);
+
+  const handleChange = (e) => {
+    dispatch(changeBattleTag(e.target.value));
+  };
+
+  const handleSubmit = () => {
+    axios
+      .get(
+        `https://owapi.io/profile/${platform}/${region}/${
+          battleTag.split("#")[0]
+        }-${battleTag.split("#")[1]}`
+      )
+      .then((res) => {
+        const responseData = res.data;
+        dispatch(changeProfile(responseData));
+      });
+  };
+
   return (
-    <form className={classes.textField} noValidate autoComplete="off">
+    <div>
       <TextField
         id="outlined-basic"
         label={label}
         variant="outlined"
-        onInput={(e) => dispatch(changeBattleTag(e.target.value))}
+        onChange={handleChange}
       />
-    </form>
+      <Button variant="contained" onClick={handleSubmit}>
+        Submit
+      </Button>
+    </div>
   );
 };
 
