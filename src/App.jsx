@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const { platform, region, profile } = useSelector((state) => state.data);
+  const { platform, region, profile } = useSelector((state) => state.profile);
 
   return (
     <div className={classes.root}>
