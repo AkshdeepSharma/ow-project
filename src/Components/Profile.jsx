@@ -8,7 +8,8 @@ const Profile = () => {
   };
 
   const playerProfile = useSelector((state) => state.profile.profile);
-  const { username, level, competitive, games, message } = playerProfile;
+  const { username, level, competitive, games, portrait, message } =
+    playerProfile;
   const { quickplay: quickplayGames, competitive: competitiveGames } =
     games || {};
   const { damage, support, tank } = competitive || {};
@@ -18,21 +19,22 @@ const Profile = () => {
     lost: competitiveLost,
     draw: competitiveDraw,
     played: competitivePlayed,
-    win_rate: competitiveWinRate,
   } = competitiveGames || {};
   const quickplayLost = quickplayPlayed - quickplayWon;
   const quickplayWinRate = roundToTwo(quickplayWon, quickplayPlayed);
+  const competitiveWinRate = roundToTwo(competitiveWon, competitivePlayed);
 
   return (
     <div>
       {!message ? (
         <div>
           <div>
+            <img src={portrait} alt="player profile" />
             <Typography>{username}</Typography>
             <Typography>Level: {level} </Typography>
-            <Typography>DPS rank: {damage.rank || "unranked"}</Typography>
-            <Typography>Support rank: {support.rank || "unranked"}</Typography>
-            <Typography>Tank rank: {tank.rank || "unranked"}</Typography>
+            <Typography>DPS rank: {damage.rank || "-"}</Typography>
+            <Typography>Support rank: {support.rank || "-"}</Typography>
+            <Typography>Tank rank: {tank.rank || "-"}</Typography>
           </div>
           <div>
             <Typography>Quickplay stats</Typography>
