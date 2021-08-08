@@ -21,7 +21,7 @@ const Profile = () => {
     win_rate: competitiveWinRate,
   } = competitiveGames || {};
   const quickplayLost = quickplayPlayed - quickplayWon;
-  const quickplayWinRate = roundToTwo(quickplayWon / quickplayPlayed);
+  const quickplayWinRate = roundToTwo(quickplayWon, quickplayPlayed);
 
   return (
     <div>
