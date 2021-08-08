@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Select,
   MenuItem,
@@ -19,14 +19,10 @@ const DropDownMenu = (props) => {
   const classes = useStyles();
   const { title, data, currVal } = props;
   const dispatch = useDispatch();
-  const platform = useSelector((state) => state.data.platform);
-  const region = useSelector((state) => state.data.region);
   const handleOnChange = (e) => {
     title === "Platform"
       ? dispatch(changePlatform(e.target.value))
       : dispatch(changeRegion(e.target.value));
-    console.log(platform);
-    console.log(region);
   };
 
   return (
