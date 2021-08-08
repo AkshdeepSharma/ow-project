@@ -15,7 +15,8 @@ const TextFieldInput = (props) => {
     dispatch(changeBattleTag(e.target.value));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     axios
       .get(
         `https://owapi.io/profile/${platform}/${region}/${
@@ -29,17 +30,17 @@ const TextFieldInput = (props) => {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <TextField
         id="outlined-basic"
         label={label}
         variant="outlined"
         onChange={handleChange}
       />
-      <Button variant="contained" onClick={handleSubmit}>
+      <Button type="submit" variant="contained">
         Submit
       </Button>
-    </div>
+    </form>
   );
 };
 
