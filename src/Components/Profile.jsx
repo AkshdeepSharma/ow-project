@@ -3,18 +3,48 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const playerProfile = useSelector((state) => state.data.profile);
-  const { username, level, competitive, message } = playerProfile;
+  const roundToTwo = (num1, num2) => {
+    return +(Math.round((num1 / num2) * 100 + "e+2") + "e-2");
+  };
+
+  const playerProfile = useSelector((state) => state.profile.profile);
+  const { username, level, competitive, games, message } = playerProfile;
+  const { quickplay: quickplayGames, competitive: competitiveGames } =
+    games || {};
   const { damage, support, tank } = competitive || {};
+  const { won: quickplayWon, played: quickplayPlayed } = quickplayGames || {};
+  const {
+    won: competitiveWon,
+    lost: competitiveLost,
+    draw: competitiveDraw,
+    played: competitivePlayed,
+    win_rate: competitiveWinRate,
+  } = competitiveGames || {};
+  const quickplayLost = quickplayPlayed - quickplayWon;
+  const quickplayWinRate = roundToTwo(quickplayWon / quickplayPlayed);
+
   return (
     <div>
       {!message ? (
         <div>
-          <Typography>{username}</Typography>
-          <Typography>Level: {level} </Typography>
-          <Typography>DPS rank: {damage.rank || "unranked"}</Typography>
-          <Typography>Support rank: {support.rank || "unranked"}</Typography>
-          <Typography>Tank rank: {tank.rank || "unranked"}</Typography>
+          <div>
+            <Typography>{username}</Typography>
+            <Typography>Level: {level} </Typography>
+            <Typography>DPS rank: {damage.rank || "unranked"}</Typography>
+            <Typography>Support rank: {support.rank || "unranked"}</Typography>
+            <Typography>Tank rank: {tank.rank || "unranked"}</Typography>
+          </div>
+          <div>
+            <Typography>Quickplay stats</Typography>
+            Won: {quickplayWon} Lost: {quickplayLost} Played: {quickplayPlayed}{" "}
+            Win Rate: {quickplayWinRate}%
+          </div>
+          <div>
+            <Typography>Competitive stats</Typography>
+            Won: {competitiveWon} Lost: {competitiveLost} Draw:{" "}
+            {competitiveDraw} Played: {competitivePlayed} Win Rate:{" "}
+            {competitiveWinRate}%
+          </div>
         </div>
       ) : (
         <Typography>Profile Not Found</Typography>

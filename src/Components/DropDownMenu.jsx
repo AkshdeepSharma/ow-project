@@ -7,7 +7,7 @@ import {
   InputLabel,
   makeStyles,
 } from "@material-ui/core";
-import { changePlatform, changeRegion } from "../redux/data";
+import { changePlatform, changeRegion } from "../redux/profile";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {

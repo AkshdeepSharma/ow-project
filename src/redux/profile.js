@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const dataSlice = createSlice({
-  name: "data",
+export const profileSlice = createSlice({
+  name: "profile",
   initialState: {
     platform: "pc",
     region: "us",
@@ -25,6 +25,6 @@ export const dataSlice = createSlice({
 });
 
 export const { changePlatform, changeRegion, changeBattleTag, changeProfile } =
-  dataSlice.actions;
+  profileSlice.actions;
 
-export default dataSlice.reducer;
+export default profileSlice.reducer;
