@@ -4,9 +4,12 @@ export const platforms = [
   { name: "PSN", value: "psn" },
   { name: "SWITCH", value: "nintendo-switch" },
 ];
+
 export const regions = [
   { name: "NA", value: "us" },
   { name: "EU", value: "eu" },
   { name: "KR", value: "kr" },
   { name: "CN", value: "cn" },
 ];
+
+export const API_URL = "https://owapi.io/profile/";

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { changeBattleTag, changeProfile } from "../redux/profile";
 import { Button, TextField } from "@material-ui/core";
+import { API_URL } from "../Constants/constants";
 
 const TextFieldInput = (props) => {
   const { label } = props;
@@ -19,9 +20,12 @@ const TextFieldInput = (props) => {
     e.preventDefault();
     axios
       .get(
-        `https://owapi.io/profile/${platform}/${region}/${
-          battleTag.split("#")[0]
-        }-${battleTag.split("#")[1]}`
+        battleTag.includes("#")
+          ? API_URL +
+              `${platform}/${region}/${battleTag.split("#")[0]}-${
+                battleTag.split("#")[1]
+              }`
+          : API_URL + `${platform}/${region}/${battleTag}`
       )
       .then((res) => {
         const responseData = res.data;
