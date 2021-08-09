@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { changeBattleTag, changeProfile } from "../redux/profile";
 import { Button, TextField } from "@material-ui/core";
-import { API_URL, consolePlatforms } from "../Constants/constants";
+import { API_URL } from "../Constants/constants";
 
 const TextFieldInput = (props) => {
   const { label } = props;
