@@ -1,14 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { changeBattleTag, changeProfile } from "../redux/profile";
+import { changeBattleTag } from "../redux/reducers/profile";
 import { Button, TextField } from "@material-ui/core";
+import { getProfile } from "../redux/ducks/profile";
 
 const TextFieldInput = (props) => {
   const { label } = props;
   const dispatch = useDispatch();
-  const platform = useSelector((state) => state.profile.platform);
-  const region = useSelector((state) => state.profile.region);
   const battleTag = useSelector((state) => state.profile.battleTag);
 
   const handleChange = (e) => {
@@ -17,16 +15,15 @@ const TextFieldInput = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .get(
-        `https://owapi.io/profile/${platform}/${region}/${
-          battleTag.split("#")[0]
-        }-${battleTag.split("#")[1]}`
-      )
-      .then((res) => {
-        const responseData = res.data;
-        dispatch(changeProfile(responseData));
-      });
+    if (battleTag.includes("#")) {
+      const platform = "pc";
+      const region = "global";
+      dispatch(getProfile({ platform, region, battleTag }));
+    } else {
+      const platform = "xbl";
+      const region = "global";
+      dispatch(getProfile({ platform, region, battleTag }));
+    }
   };
 
   return (
