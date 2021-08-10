@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeBattleTag } from "../redux/reducers/profile";
+import { changeBattleTag } from "../redux/ducks/profile";
 import { Button, TextField } from "@material-ui/core";
 import { getProfile } from "../redux/ducks/profile";
 

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import profileReducer from "./reducers/profile";
+import profileReducer from "./ducks/profile";
 import { watcherSaga } from "./sagas/rootSaga";
 
 const sagaMiddleware = createSagaMiddleware();
