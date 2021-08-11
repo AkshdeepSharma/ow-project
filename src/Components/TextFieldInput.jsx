@@ -1,11 +1,32 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Paper, InputBase, makeStyles, IconButton } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 import { changeBattleTag } from "../redux/ducks/profile";
-import { Button, TextField } from "@material-ui/core";
 import { getProfile } from "../redux/ducks/profile";
+
+const useStyles = makeStyles({
+  root: {
+    padding: "2px 10px",
+    width: "40%",
+    marginTop: 100,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  input: {
+    backgroundColor: "white",
+    height: 48,
+    flex: 1,
+  },
+  iconButton: {
+    padding: 10,
+  },
+});
 
 const TextFieldInput = (props) => {
   const { label } = props;
+  const classes = useStyles();
   const dispatch = useDispatch();
   const battleTag = useSelector((state) => state.profile.battleTag);
 
@@ -27,17 +48,21 @@ const TextFieldInput = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField
-        id="outlined-basic"
-        label={label}
-        variant="outlined"
+    <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
+      <InputBase
+        className={classes.input}
+        placeholder={label}
+        inputProps={{ "aria-label": "search battletag" }}
         onChange={handleChange}
       />
-      <Button type="submit" variant="contained">
-        Submit
-      </Button>
-    </form>
+      <IconButton
+        type="submit"
+        className={classes.iconButton}
+        aria-label="search"
+      >
+        <SearchIcon />
+      </IconButton>
+    </Paper>
   );
 };
 
